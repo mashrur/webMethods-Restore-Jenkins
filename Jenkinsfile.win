@@ -37,8 +37,6 @@ pipeline {
             steps {
                 script {
 				        artifactoryZipName = "${env.JOB_NAME}-${env.BUILD_NUMBER}.zip"
-				        zip zipFile: "${artifactoryZipName}"
-					echo 'zip file: ${artifactoryZipName}'
 				        def downloadSpec = """{
                                          "files": [
                                             {
@@ -58,7 +56,9 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-		bat "${cmd} deploy"
+	        dir('test-with-artifactory/26'){
+            		bat "${cmd} deploy"
+          	}		
             }
         }
  	stage('Test') {
