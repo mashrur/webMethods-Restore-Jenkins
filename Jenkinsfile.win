@@ -83,7 +83,7 @@ pipeline {
             steps {
 	        dir("${projectName}/${buildNumber}"){
 		     bat "${cmd} test"
-		     junit 'report/'
+		     junit allowEmptyResults: true, testResults:'report/'
 		}
             }
         }
