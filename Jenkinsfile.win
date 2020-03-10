@@ -33,7 +33,8 @@ pipeline {
 	
     stages {
         stage('Input') {
-	   script {
+	   steps {
+	     script {
                   def userInput = input(
                    id: 'userInput', message: 'Enter details for restoration',
                    parameters: [
@@ -47,8 +48,8 @@ pipeline {
                   projectName = userInput.projname
 		  buildNumber = userInput.buildnum
 		  cmd = "${env.SAG_HOME}/common/lib/ant/bin/ant -DSAGHome=${env.SAG_HOME} -DSAG_CI_HOME=${env.SAG_CI_HOME} -DprojectName=${projectName} -Dconfig.build.fbr.type=${fbrType}"
+                }
               }
-              
 	}
         stage('Restore') {
             steps {
